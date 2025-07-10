@@ -15,6 +15,7 @@ text_area = (0, 250, 1920, 1025)
 def preprocess_image(img):
     '''
     # A utilidade disso irá depender de como vai ser sua tela, gera caracteres aleatórios, pode fazer com que textos não identificados sejam identificados
+    warning: cenários com cores muito parecidas das letras podem causar interferências e fazer o texto ser traduzido com ruído ou não ser traduzido.
     :param img: image to process
     :return: image binarized
     '''
@@ -34,6 +35,7 @@ def capturar_e_traduzir():
     custom_config = r'--oem 3 --psm 6'
     texto_extraido = pytesseract.image_to_string(imagem, lang='eng', config=custom_config).strip()
 
+    #Irá evitar o I (eu em inglês) ser identificado como pipeline
     texto_extraido = texto_extraido.replace('|', 'I')
 
     if texto_extraido:
